@@ -1,0 +1,27 @@
+{
+  "name": "devops-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reddysai99/DevOps-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reddysai99/DevOps-Project/issues"
+  },
+  "homepage": "https://github.com/reddysai99/DevOps-Project#readme",
+  "description": "",
+  "dependencies": {
+    "dot": "^1.1.3",
+    "dotenv": "^17.2.3",
+    "env": "^0.0.2",
+    "express": "^5.1.0"
+  }
+}
