@@ -1,5 +1,4 @@
 import arcjet, { shield, detectBot, slidingWindow } from "@arcjet/node";
-import { isSpoofedBot } from "@arcjet/inspect";
 import express from "express";
 
 const app = express();
