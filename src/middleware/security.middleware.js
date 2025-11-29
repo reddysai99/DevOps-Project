@@ -7,23 +7,16 @@ const securityMiddleware = async (req, res, next) => {
     const role = req.user?.role || 'guest';
 
     let limit;
-    let message;
 
     switch (role) {
       case 'admin':
         limit = 20;
-        message =
-          'Your Admin Request had exceeded 20 requests per min Slow down Bro!!';
         break;
       case 'user':
         limit = 10;
-        message =
-          'Your Admin Request had exceeded 10 requests per min Slow down Bro!!';
         break;
       case 'guest':
         limit = 5;
-        message =
-          'Your Admin Request had exceeded 20 requests per min Slow down Bro!!';
         break;
     }
     const client = aj.withRule(
@@ -44,12 +37,10 @@ const securityMiddleware = async (req, res, next) => {
         path: req.path,
       });
 
-      return res
-        .status(403)
-        .json({
-          error: 'Forbidden',
-          message: 'Automated requests are not allowed',
-        });
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Automated requests are not allowed',
+      });
     }
     if (decision.isDenied() && decision.reason.isShield()) {
       logger.warn('Shield Blocked Request', {
@@ -59,12 +50,10 @@ const securityMiddleware = async (req, res, next) => {
         method: req.method,
       });
 
-      return res
-        .status(403)
-        .json({
-          error: 'Forbidden',
-          message: 'Automated requests are not allowed',
-        });
+      return res.status(403).json({
+        error: 'Forbidden',
+        message: 'Automated requests are not allowed',
+      });
     }
     if (decision.isDenied() && decision.reason.isRateLimit()) {
       logger.warn('Rate limit Exceeded', {
@@ -80,12 +69,10 @@ const securityMiddleware = async (req, res, next) => {
     next();
   } catch (e) {
     console.error('ArcJet Middleware Error', e);
-    res
-      .status(500)
-      .json({
-        error: 'Internal Server Error',
-        message: 'Something went wrong with middleware',
-      });
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Something went wrong with middleware',
+    });
   }
 };
 export default securityMiddleware;

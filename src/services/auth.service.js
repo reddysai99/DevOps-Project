@@ -71,7 +71,8 @@ export const authenticateUser = async ({ email, password }) => {
     }
 
     // Remove password before returning
-    const { password: _ignored, ...safeUser } = user;
+    // eslint-disable-next-line no-unused-vars
+    const { password: _password, ...safeUser } = user;
     return safeUser;
   } catch (e) {
     logger.error(`Error authenticating user: ${e}`);

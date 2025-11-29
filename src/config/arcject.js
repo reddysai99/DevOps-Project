@@ -1,8 +1,4 @@
 import arcjet, { shield, detectBot, slidingWindow } from '@arcjet/node';
-import express from 'express';
-
-const app = express();
-const port = 3000;
 
 const aj = arcjet({
   // Get your site key from https://app.arcjet.com and set it as an environment
