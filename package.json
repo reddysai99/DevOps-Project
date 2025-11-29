@@ -15,9 +15,12 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev:docker": "pwsh scripts/dev.ps1",
-    "prod:docker": "pwsh scripts/prod.ps1"
+    "prod:docker": "pwsh scripts/prod.ps1",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
     "@arcjet/node": "^1.0.0-beta.15",
@@ -37,12 +40,17 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "cross-env": "^10.1.0",
     "drizzle-kit": "^0.20.0",
     "eslint": "^8.55.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.0.2",
-    "prettier": "^3.1.0"
+    "prettier": "^3.1.0",
+    "supertest": "^7.1.4"
   },
   "imports": {
+    "#src/*": "./src/*",
     "#config/*": "./src/config/*",
     "#controllers/*": "./src/controllers/*",
     "#middleware/*": "./src/middleware/*",
