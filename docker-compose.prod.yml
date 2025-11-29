@@ -9,7 +9,7 @@ services:
       target: production
     container_name: devops-app-prod
     ports:
-      - "3000:3000"
+      - '3000:3000'
     env_file:
       - .env.production
     volumes:
@@ -19,7 +19,11 @@ services:
       - devops-network
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/health', (res) => process.exit(res.statusCode === 200 ? 0 : 1))\""]
+      test:
+        [
+          'CMD-SHELL',
+          'node -e "require(''http'').get(''http://localhost:3000/health'', (res) => process.exit(res.statusCode === 200 ? 0 : 1))"',
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -47,8 +51,8 @@ services:
     logging:
       driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
 
 networks:
   devops-network:

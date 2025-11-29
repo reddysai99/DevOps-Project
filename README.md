@@ -40,12 +40,14 @@ The application uses different environment files:
 ### Setup
 
 1. **Clone and configure:**
+
    ```bash
    git clone <repository>
    cd DevOps-Project
    ```
 
 2. **Configure development environment:**
+
    ```bash
    cp .env.development .env
    ```
@@ -60,21 +62,25 @@ The application uses different environment files:
 ### Running with Docker Compose
 
 **Start development environment:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
 **Run in background:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml up -d --build
 ```
 
 **Stop services:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml down
 ```
 
 **View logs:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml logs -f app
 ```
@@ -89,16 +95,19 @@ docker-compose -f docker-compose.dev.yml logs -f app
 ### Database Management
 
 **Run database migrations:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml exec app npm run db:migrate
 ```
 
 **Generate new migrations:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml exec app npm run db:generate
 ```
 
 **Open Drizzle Studio:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml exec app npm run db:studio
 ```
@@ -108,6 +117,7 @@ docker-compose -f docker-compose.dev.yml exec app npm run db:studio
 ### Setup
 
 1. **Configure production environment:**
+
    ```bash
    cp .env.production .env
    ```
@@ -122,16 +132,19 @@ docker-compose -f docker-compose.dev.yml exec app npm run db:studio
 ### Running Production
 
 **Start production environment:**
+
 ```bash
 docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
 **Check health:**
+
 ```bash
 curl http://localhost:3000/health
 ```
 
 **View production logs:**
+
 ```bash
 docker-compose -f docker-compose.prod.yml logs -f app
 ```
@@ -147,9 +160,10 @@ docker-compose -f docker-compose.prod.yml logs -f app
 ## 🔄 Database Connection Patterns
 
 ### Development (Neon Local)
+
 ```javascript
 // Connection automatically routed through Neon Local proxy
-const DATABASE_URL = "postgres://neon:npg@neon-local:5432/main?sslmode=require"
+const DATABASE_URL = 'postgres://neon:npg@neon-local:5432/main?sslmode=require';
 
 // For Neon serverless driver (if used)
 import { neon, neonConfig } from '@neondatabase/serverless';
@@ -159,9 +173,11 @@ neonConfig.poolQueryViaFetch = true;
 ```
 
 ### Production (Direct Neon Cloud)
+
 ```javascript
 // Direct connection to Neon Cloud
-const DATABASE_URL = "postgres://user:pass@ep-xxx.region.aws.neon.tech/db?sslmode=require"
+const DATABASE_URL =
+  'postgres://user:pass@ep-xxx.region.aws.neon.tech/db?sslmode=require';
 
 // Standard configuration for production
 ```
@@ -175,6 +191,7 @@ const DATABASE_URL = "postgres://user:pass@ep-xxx.region.aws.neon.tech/db?sslmod
 - `GET /api` - API status check
 
 ### Health Check Response
+
 ```json
 {
   "status": "OK",
@@ -188,16 +205,19 @@ const DATABASE_URL = "postgres://user:pass@ep-xxx.region.aws.neon.tech/db?sslmod
 ### Common Issues
 
 **Neon Local not starting:**
+
 - Check API credentials in `.env`
 - Verify project ID is correct
 - Ensure parent branch exists
 
 **Database connection errors:**
+
 - Verify `DATABASE_URL` format
 - Check network connectivity between services
 - Confirm SSL requirements
 
 **Build failures:**
+
 - Clear Docker cache: `docker system prune -a`
 - Check for file permission issues
 - Verify Node.js version compatibility
@@ -205,21 +225,25 @@ const DATABASE_URL = "postgres://user:pass@ep-xxx.region.aws.neon.tech/db?sslmod
 ### Debugging Commands
 
 **Check service status:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml ps
 ```
 
 **Access application shell:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml exec app sh
 ```
 
 **Check Neon Local logs:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml logs neon-local
 ```
 
 **Test database connectivity:**
+
 ```bash
 docker-compose -f docker-compose.dev.yml exec app node -e "
 const { db } = require('./src/config/database.js');
@@ -250,11 +274,13 @@ console.log('Database connected successfully');
 ## 🔒 Security Considerations
 
 ### Development
+
 - Local database with ephemeral branches
 - Debug logging enabled
 - Development-only middleware
 
 ### Production
+
 - Environment variables for all secrets
 - Read-only filesystem
 - Minimal container privileges
